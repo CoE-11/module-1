@@ -81,7 +81,7 @@ def get_top_3_cheapest_by_school_year(level, school_year):
         suc_reg[row[1]] = int(row[syear])
   f.close()
   suc_list = sorted(suc_reg.items(), key = operator.itemgetter(1))
-  #for x in range(20):
+  #for x in range(len(suc_list)):
   #  print suc_list[x][0],suc_list[x][1]
   print "4. Top 3 cheapest SUC for ",level," level in school year ",school_year
   print "  1. ",suc_list[0][0]
@@ -128,7 +128,7 @@ def all_suc_who_have_increased_tuition_fee():
   for index, line in enumerate (f):
       row = line.split(',')
       if row[syear10_11] != 'first_sem_2010-2011_bs_ab' and  row[syear10_11].isdigit() == True and row[syear11_12].isdigit() == True and row[syear12_13].isdigit() == True:
-        if row[syear10_11] > row[syear11_12] or row[syear10_11] > row[syear12_13]:
+        if row[syear10_11] < row[syear11_12] or row[syear10_11] < row[syear12_13]:
           suc.append(row[1])
         #else:
           #suc_static.append(row[1])
