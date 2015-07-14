@@ -77,8 +77,13 @@ def get_top_3_cheapest_by_school_year(level, school_year):
   suc_reg = {}
   for index, line in enumerate (f):
       row = line.split(',')
-      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].isdigit() == True:
-        suc_reg[row[1]] = int(row[syear])
+      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].strip() != '-' and row[syear] != 'free tuition fee' and row[syear] != 'nds' and row[syear] != 'nd' and row[syear] != '2500 regardless of the number of units' and row[syear] !=  '550/sem' and row[syear] != '80 / 120':
+        if row[syear] == '142.5':
+          suc_reg[row[1]] = 142.5
+        elif row[syear] == '158.8':
+          suc_reg[row[1]] = 158.8
+        else:
+          suc_reg[row[1]] = int(row[syear])
   f.close()
   suc_list = sorted(suc_reg.items(), key = operator.itemgetter(1))
   #for x in range(len(suc_list)):
@@ -101,8 +106,13 @@ def get_top_3_most_expensive_by_school_year(level, school_year):
   f = open('tuitionfeeperunitsucproglevel20102013.csv' , 'r')
   for index, line in enumerate (f):
       row = line.split(',')
-      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].isdigit() == True:
-        suc_reg[row[1]] = int(row[syear])
+      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].strip() != '-' and row[syear] != 'free tuition fee' and row[syear] != 'nds' and row[syear] != 'nd' and row[syear] != '2500 regardless of the number of units' and row[syear] !=  '550/sem' and row[syear] != '80 / 120':
+        if row[syear] == '142.5':
+          suc_reg[row[1]] = 142.5
+        elif row[syear] == '158.8':
+          suc_reg[row[1]] = 158.8
+        else:
+          suc_reg[row[1]] = int(row[syear])
   f.close()
   suc_list = sorted(suc_reg.items(), key = operator.itemgetter(1),reverse=True)
 
@@ -128,7 +138,7 @@ def all_suc_who_have_increased_tuition_fee():
   for index, line in enumerate (f):
       row = line.split(',')
       if row[syear10_11] != 'first_sem_2010-2011_bs_ab' and  row[syear10_11].isdigit() == True and row[syear11_12].isdigit() == True and row[syear12_13].isdigit() == True:
-        if row[syear10_11] < row[syear11_12] or row[syear10_11] < row[syear12_13]:
+        if row[syear10_11] < row[syear12_13]:
           suc.append(row[1])
         #else:
           #suc_static.append(row[1])
