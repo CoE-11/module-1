@@ -30,7 +30,7 @@ def get_region_with_most_enrollees_by_school_year(school_year):
   for index, line in enumerate (f):
       row = line.split(',')
       #print row[2]
-      if row[0] != 'region' and row[syear] != '-':
+      if row[0] != 'region' and row[syear].strip() != '-':
         if row[0] in suc_reg:
           suc_reg[row[0]] += int(row[syear])
         else:
@@ -77,19 +77,8 @@ def get_top_3_cheapest_by_school_year(level, school_year):
   suc_reg = {}
   for index, line in enumerate (f):
       row = line.split(',')
-      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].strip() != '-' and row[syear] != 'free tuition fee' and row[syear] != 'nds' and row[syear] != 'nd':
-        if row[syear] == '80 / 120':
-          suc_reg[row[1]] = 80
-        elif row[syear] == '142.5':
-          suc_reg[row[1]] = 142.5
-        elif row[syear] == '158.8':
-          suc_reg[row[1]] = 158.8
-        elif row[syear] == '2500 regardless of the number of units':
-          suc_reg[row[1]] = 2500
-        elif row[syear] ==  '550/sem':
-          suc_reg[row[1]] = 550
-        else: 
-          suc_reg[row[1]] = int(row[syear])
+      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].isdigit() == True:
+        suc_reg[row[1]] = int(row[syear])
   f.close()
   suc_list = sorted(suc_reg.items(), key = operator.itemgetter(1))
   #for x in range(20):
@@ -112,19 +101,8 @@ def get_top_3_most_expensive_by_school_year(level, school_year):
   f = open('tuitionfeeperunitsucproglevel20102013.csv' , 'r')
   for index, line in enumerate (f):
       row = line.split(',')
-      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].strip() != '-' and row[syear] != 'free tuition fee' and row[syear] != 'nds' and row[syear] != 'nd':
-        if row[syear] == '80 / 120':
-          suc_reg[row[1]] = 80
-        elif row[syear] == '142.5':
-          suc_reg[row[1]] = 142.5
-        elif row[syear] == '158.8':
-          suc_reg[row[1]] = 158.8
-        elif row[syear] == '2500 regardless of the number of units':
-          suc_reg[row[1]] = 2500
-        elif row[syear] ==  '550/sem':
-          suc_reg[row[1]] = 550
-        else: 
-          suc_reg[row[1]] = int(row[syear])
+      if row[syear] != 'first_sem_2010-2011_bs_ab' and row[syear].isdigit() == True:
+        suc_reg[row[1]] = int(row[syear])
   f.close()
   suc_list = sorted(suc_reg.items(), key = operator.itemgetter(1),reverse=True)
 
@@ -149,7 +127,7 @@ def all_suc_who_have_increased_tuition_fee():
   f = open('tuitionfeeperunitsucproglevel20102013.csv' , 'r')
   for index, line in enumerate (f):
       row = line.split(',')
-      if row[syear10_11] != 'first_sem_2010-2011_bs_ab' and row[syear10_11].strip() != '-' and row[syear10_11] != 'free tuition fee' and row[syear10_11] != 'nds' and row[syear10_11] != 'nd' and row[syear11_12] != 'first_sem_2010-2011_bs_ab' and row[syear11_12].strip() != '-' and row[syear11_12] != 'free tuition fee' and row[syear11_12] != 'nds' and row[syear11_12] != 'nd' and row[syear12_13] != 'first_sem_2010-2011_bs_ab' and row[syear12_13].strip() != '-' and row[syear12_13] != 'free tuition fee' and row[syear12_13] != 'nds' and row[syear12_13] != 'nd':
+      if row[syear10_11] != 'first_sem_2010-2011_bs_ab' and  row[syear10_11].isdigit() == True and row[syear11_12].isdigit() == True and row[syear12_13].isdigit() == True:
         if row[syear10_11] > row[syear11_12] or row[syear10_11] > row[syear12_13]:
           suc.append(row[1])
         #else:
